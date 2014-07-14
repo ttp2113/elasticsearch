@@ -1,7 +1,7 @@
 ## ElasticSearch Dockerfile
 
 
-This repository contains **Dockerfile** of [ElasticSearch](http://www.elasticsearch.org/) for [Docker](https://www.docker.io/)'s [trusted build](https://index.docker.io/u/dockerfile/elasticsearch/) published to the public [Docker Registry](https://index.docker.io/).
+This repository contains an edited version of the ElasticSearch Dockerfile
 
 
 ### Dependencies
@@ -13,31 +13,18 @@ This repository contains **Dockerfile** of [ElasticSearch](http://www.elasticsea
 
 1. Install [Docker](https://www.docker.io/).
 
-2. Download [trusted build](https://index.docker.io/u/dockerfile/elasticsearch/) from public [Docker Registry](https://index.docker.io/): `docker pull dockerfile/elasticsearch`
-
-   (alternatively, you can build an image from Dockerfile: `docker build -t="dockerfile/elasticsearch" github.com/dockerfile/elasticsearch`)
+2. Build an image from Dockerfile: `docker build -t="ttp2113/elasticsearch" github.com/ttp2113/elasticsearch`)
 
 
 ### Usage
 
     docker run -d -p 9200:9200 -p 9300:9300 dockerfile/elasticsearch
-
-#### Attach persistent/shared directories
-
-  1. Create a mountable data directory `<data-dir>` on the host.
-
-  2. Create ElasticSearch config file at `<data-dir>/elasticsearch.yml`.
-
-    ```yml
-    path:
-      logs: /data/log
-      data: /data/data
-    ```
-
-  3. Start a container by mounting data directory and specifying the custom configuration file:
-
-    ```sh
-    docker run -d -p 9200:9200 -p 9300:9300 -v <data-dir>:/data dockerfile/elasticsearch /elasticsearch/bin/elasticsearch -Des.config=/data/elasticsearch.yml
-    ```
-
-After few seconds, open `http://<host>:9200` to see the result.
+    
+### I use:
+    docker run -d -h "elasticsearch-node-xx" --name="elasticsearch-node-xx" -p 92xx:9200 -p 93xx:9300 -v    /etc/elasticsearch/cluster/:/data dockerfile/elasticsearch /elasticsearch/bin/elasticsearch -Des.config=/data/elasticsearch.yml
+   
+### Curl to verify if running
+    curl 127.0.0.1:92xx
+   
+### Logging
+    logs are stored in /etc/elasticsearch/cluster/logs
